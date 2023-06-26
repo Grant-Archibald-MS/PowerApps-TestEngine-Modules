@@ -10,8 +10,8 @@ testSuite:
       testCaseDescription: Dataverse example
       testSteps: |
         = DataverseLogin();
-          DataverseExecute("me", "GET", "WhoAmI");
-          Assert(Len(DataverseGet("me","UserId")) > 0)
+          DataverseExecute("lowcodeplugin", "POST", "crbed_Test");
+          Assert(DataverseGet("lowcodeplugin","Name") = "Hello")
 testSettings:
   headless: false
   locale: "en-US"
