@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\PowerApps-TestEngine\src\PowerAppsTestEngine\PowerAppsTestEngine.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy bin\$(configuration)\net6.0\testengine.module.goto.dll ..\..\..\PowerApps-TestEngine\bin\$(configuration)\PowerAppsTestEngine\testengine.module.goto.dll" />
+  </Target>
+
+</Project>

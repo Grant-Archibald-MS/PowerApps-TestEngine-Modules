@@ -6,17 +6,20 @@ testSuite:
   onTestSuiteComplete: Screenshot("playwrightaction_onTestSuiteComplete.png");
 
   testCases:
-    - testCaseName: Pause
-      testCaseDescription: Pause example
+    - testCaseName: Dataverse
+      testCaseDescription: Dataverse example
       testSteps: |
-        = Ready();Pause();
-
+        = DataverseLogin();
+          DataverseExecute("me", "WhoAmI");
+          Assert(Len(DataverseGet("me","UserId")) > 0)
 testSettings:
   headless: false
   locale: "en-US"
   recordVideo: true
   extensionModules:
     enable: true
+    parameters:
+      DisablePowerApps: True
   browserConfigurations:
     - browser: Chromium
 
