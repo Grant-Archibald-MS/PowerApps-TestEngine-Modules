@@ -1,0 +1,32 @@
+testSuite:
+  testSuiteName: testPlan Template
+  testSuiteDescription: Test Engine MDA example
+  persona: User1
+  appLogicalName: new_buttonclicker_0a877
+  onTestSuiteComplete: Screenshot("mda_onTestSuiteComplete.png");
+
+  testCases:
+    - testCaseName: Run Script
+      testCaseDescription: MDA example
+      testSteps: |
+        = PlaywrightAction("https://orgd60cad63.crm.dynamics.com/main.aspx?appid=ae2b4a09-2dfc-ee11-a1fe-000d3a30fa87&pagetype=entitylist&etn=account", "navigate");
+          PlaywrightScript("recording.csx");
+          Pause();
+          
+testSettings:
+  headless: false
+  locale: "en-US"
+  recordVideo: true
+  timeout: "60000"
+  extensionModules:
+    enable: true
+    parameters:
+      DisablePowerApps: True
+  browserConfigurations:
+    - browser: Chromium
+
+environmentVariables:
+  users:
+    - personaName: User1
+      emailKey: user1Email
+      passwordKey: user1Password

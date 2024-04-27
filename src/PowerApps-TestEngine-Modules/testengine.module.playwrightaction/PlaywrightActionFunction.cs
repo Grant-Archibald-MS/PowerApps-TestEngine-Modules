@@ -51,7 +51,11 @@ namespace testengine.module
                 case "navigate":
                     _logger.LogInformation("Navigate to page");
                     string url = locator.Value;
-                    _testInfraFunctions.GoToUrlAsync(url).Wait();
+                    if ( url.IndexOf("{environment}") >=0 ) {
+                        var env = _testState.GetEnvironment();
+                        url = url.Replace("{environment}", env);
+                    }
+                    page.GotoAsync(url).Wait();
                     break;
                 case "wait":
                     _logger.LogInformation("Wait for locator");
