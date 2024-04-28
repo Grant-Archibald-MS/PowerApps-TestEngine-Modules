@@ -22,6 +22,12 @@ namespace testengine.user.environment
     {   
         public string Name { get { return "environment"; } }
 
+        public int Priority { get { return 0; } }
+
+        public bool UseStaticContext { get { return false; } }
+
+        public string Location { get; set; } = string.Empty;
+
         public static string EmailSelector = "input[type=\"email\"]";
         public static string PasswordSelector = "input[type=\"password\"]";
         public static string SubmitButtonSelector = "input[type=\"submit\"]";
