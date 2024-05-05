@@ -3,7 +3,7 @@ using Microsoft.PowerFx;
 using Microsoft.Playwright;
 using Moq;
 using Microsoft.PowerApps.TestEngine.Config;
-using Microsoft.PowerApps.TestEngine.PowerApps;
+using Microsoft.PowerApps.TestEngine.Providers;
 using Microsoft.PowerApps.TestEngine.System;
 using Microsoft.Extensions.Logging;
 using Microsoft.PowerFx.Types;
@@ -14,7 +14,7 @@ namespace testengine.module.browserlocale.tests
     {
         private Mock<ITestInfraFunctions> MockTestInfraFunctions;
         private Mock<ITestState> MockTestState;
-        private Mock<IPowerAppFunctions> MockPowerAppFunctions;
+        private Mock<ITestWebProvider> MockTestWebProvider;
         private Mock<ISingleTestInstanceState> MockSingleTestInstanceState;
         private Mock<IFileSystem> MockFileSystem;
         private Mock<IPage> MockPage;
@@ -26,7 +26,7 @@ namespace testengine.module.browserlocale.tests
         {
             MockTestInfraFunctions = new Mock<ITestInfraFunctions>(MockBehavior.Strict);
             MockTestState = new Mock<ITestState>(MockBehavior.Strict);
-            MockPowerAppFunctions = new Mock<IPowerAppFunctions>();
+            MockTestWebProvider = new Mock<ITestWebProvider>();
             MockSingleTestInstanceState = new Mock<ISingleTestInstanceState>(MockBehavior.Strict);
             MockFileSystem = new Mock<IFileSystem>(MockBehavior.Strict);
             MockPage = new Mock<IPage>(MockBehavior.Strict);

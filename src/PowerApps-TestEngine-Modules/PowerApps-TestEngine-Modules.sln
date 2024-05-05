@@ -45,6 +45,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testengine.module.goto", "t
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testengine.module.dataverse", "testengine.module.dataverse\testengine.module.dataverse.csproj", "{B98BBE73-AEE7-4BF7-B4FF-6A79A9691E35}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testengine.user.environment.tests", "testengine.user.environment.tests\testengine.user.environment.tests.csproj", "{97F33CC1-B1EC-4C47-8872-492E0FF809A1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testengine.user.browser.tests", "testengine.user.browser.tests\testengine.user.browser.tests.csproj", "{97F33CC1-B1EC-4C47-8872-492E0FF809A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

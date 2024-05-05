@@ -9,7 +9,7 @@ testSuite:
     - testCaseName: Pause
       testCaseDescription: Pause example
       testSteps: |
-        = Ready();Pause();
+        = Pause();
 
 testSettings:
   headless: false

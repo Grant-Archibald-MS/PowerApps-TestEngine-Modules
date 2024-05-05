@@ -3,7 +3,7 @@ using Microsoft.PowerFx;
 using Microsoft.Playwright;
 using Moq;
 using Microsoft.PowerApps.TestEngine.Config;
-using Microsoft.PowerApps.TestEngine.PowerApps;
+using Microsoft.PowerApps.TestEngine.Providers;
 using Microsoft.PowerApps.TestEngine.System;
 using Microsoft.Extensions.Logging;
 
@@ -13,7 +13,7 @@ namespace testengine.module.browserlocale.tests
     {
         private Mock<ITestInfraFunctions> MockTestInfraFunctions;
         private Mock<ITestState> MockTestState;
-        private Mock<IPowerAppFunctions> MockPowerAppFunctions;
+        private Mock<ITestWebProvider> MockTestWebProvider;
         private Mock<ISingleTestInstanceState> MockSingleTestInstanceState;
         private Mock<IFileSystem> MockFileSystem;
         private Mock<IPage> MockPage;
@@ -25,7 +25,7 @@ namespace testengine.module.browserlocale.tests
         {
             MockTestInfraFunctions = new Mock<ITestInfraFunctions>(MockBehavior.Strict);
             MockTestState = new Mock<ITestState>(MockBehavior.Strict);
-            MockPowerAppFunctions = new Mock<IPowerAppFunctions>();
+            MockTestWebProvider = new Mock<ITestWebProvider>();
             MockSingleTestInstanceState = new Mock<ISingleTestInstanceState>(MockBehavior.Strict);
             MockFileSystem = new Mock<IFileSystem>(MockBehavior.Strict);
             MockPage = new Mock<IPage>(MockBehavior.Strict);
@@ -39,14 +39,14 @@ namespace testengine.module.browserlocale.tests
         {
             // Arrange
 
-            var module = new ReadyFunction(MockPowerAppFunctions.Object, MockTestState.Object, MockSingleTestInstanceState.Object, MockLogger.Object);
+            var module = new ReadyFunction(MockTestWebProvider.Object, MockTestState.Object, MockSingleTestInstanceState.Object, MockLogger.Object);
             var settings = new TestSettings() { Timeout = 30000 };
             var mockContext = new Mock<IBrowserContext>(MockBehavior.Strict);
             var mockPage = new Mock<IPage>(MockBehavior.Strict);
 
             MockTestState.Setup(x => x.GetTestSettings()).Returns(settings);
-            MockPowerAppFunctions.Setup(x => x.CheckAndHandleIfLegacyPlayerAsync()).Returns(Task.CompletedTask);
-            MockPowerAppFunctions.Setup(x => x.CheckIfAppIsIdleAsync()).Returns(Task.FromResult(true));
+            MockTestWebProvider.Setup(x => x.CheckProviderAsync()).Returns(Task.CompletedTask);
+            MockTestWebProvider.Setup(x => x.CheckIsIdleAsync()).Returns(Task.FromResult(true));
 
             MockLogger.Setup(x => x.Log(
                It.IsAny<LogLevel>(),

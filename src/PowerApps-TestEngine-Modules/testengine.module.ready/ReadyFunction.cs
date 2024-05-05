@@ -8,7 +8,7 @@ using Microsoft.PowerApps.TestEngine.TestInfra;
 using Microsoft.Extensions.Logging;
 using Microsoft.PowerApps.TestEngine.Config;
 using Microsoft.PowerApps.TestEngine.Helpers;
-using Microsoft.PowerApps.TestEngine.PowerApps;
+using Microsoft.PowerApps.TestEngine.Providers;
 
 namespace testengine.module
 {
@@ -17,15 +17,15 @@ namespace testengine.module
     /// </summary>
     public class ReadyFunction : ReflectionFunction
     {
-        private readonly IPowerAppFunctions _powerAppFunctions;
+        private readonly ITestWebProvider _testWebProvider;
         private readonly ITestState _testState;
         private readonly ISingleTestInstanceState _singleTestInstanceState;
         private readonly ILogger _logger;
 
-        public ReadyFunction(IPowerAppFunctions powerAppFunctions, ITestState testState, ISingleTestInstanceState singleTestInstanceState, ILogger logger)
+        public ReadyFunction(ITestWebProvider testWebProvider, ITestState testState, ISingleTestInstanceState singleTestInstanceState, ILogger logger)
             : base("Ready", FormulaType.Blank)
         {
-            _powerAppFunctions = powerAppFunctions;
+            _testWebProvider = testWebProvider;
             _testState = testState;
             _singleTestInstanceState = singleTestInstanceState;
             _logger = logger;
@@ -36,15 +36,13 @@ namespace testengine.module
             _logger.LogInformation("------------------------------\n\n" +
                 "Executing Ready function.");
 
-            _powerAppFunctions.CheckAndHandleIfLegacyPlayerAsync().Wait();
+            _testWebProvider.CheckProviderAsync().Wait();
 
-            PollingHelper.PollAsync<bool>(false, (x) => !x, () => _powerAppFunctions.CheckIfAppIsIdleAsync(), _testState.GetTestSettings().Timeout, _logger, "Something went wrong when Test Engine tried to get App status.").Wait();
+            PollingHelper.PollAsync<bool>(false, (x) => !x, () => _testWebProvider.CheckIsIdleAsync(), _testState.GetTestSettings().Timeout, _logger, "Something went wrong when Test Engine tried to get App status.").Wait();
 
             _logger.LogInformation("Successfully finished executing Ready function.");
-
 
             return FormulaValue.NewBlank();
         }
     }
 }
-
